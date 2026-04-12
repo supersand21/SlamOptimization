@@ -1,3 +1,5 @@
 datasets
 Pangolin
-stereo_msckf_tumvi/
+/stereo_msckf_tumvi
+/stereo_msckf
+/ORB_SLAM3
