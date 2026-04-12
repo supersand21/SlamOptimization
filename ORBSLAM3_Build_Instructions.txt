@@ -1,0 +1,34 @@
+
+# Steps to reproduce ORB_SLAM3 build process
+
+# Initialize nix dev environemnt
+nixd
+
+# Enter orb slam 3 directory
+cd ORB_SLAM3
+
+# Make build directory
+mkdir build
+
+# Enter build directory
+cd build
+
+# Run cmake build file generation with specified cxx version to avoid compiling issues
+cmake .. \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_CXX_STANDARD=14 \
+  -DCMAKE_CXX_STANDARD_REQUIRED=ON
+
+# Build orb slam 3, saving the output to a log file
+make -j$(nproc) > build.log 2>&1
+
+# List all build targets
+make help
+
+# Build specific target instead of a full rebuild, e.g. if i only wanted to rebuild the mono_tum example and log it to a file:
+make mono_tum -j$(nproc) > build.log 2>&1
+
+
+# Issues faced
+The error: "Assertion `mit->second>=3' failed." appears in the middle of SLAM execution and seems to occur if there is a build mismatch.
+It is fixable by performing a clean rebuild.
