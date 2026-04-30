@@ -531,16 +531,16 @@ class MSCKF(object):
         H_f = dz_dpc0 @ dpc0_dpg + dz_dpc1 @ dpc1_dpg   # shape: (4, 3)
 
         # Modifty the measurement Jacobian to ensure observability constrain.
-        #A = H_x   # shape: (4, 6)
-        #u = np.zeros(6)
-        #u[:3] = to_rotation(cam_state.orientation_null) @ IMUState.gravity
-        #u[3:] = skew(p_w - cam_state.position_null) @ IMUState.gravity
+        A = H_x   # shape: (4, 6)
+        u = np.zeros(6)
+        u[:3] = to_rotation(cam_state.orientation_null) @ IMUState.gravity
+        u[3:] = skew(p_w - cam_state.position_null) @ IMUState.gravity
 
-        #H_x = A - (A @ u)[:, None] * u / (u @ u)
-        #H_f = -H_x[:4, 3:6]
+        H_x = A - (A @ u)[:, None] * u / (u @ u)
+        H_f = -H_x[:4, 3:6]
 
         # Removed FEJ above and replaced with bellow
-        H_f = -H_x[:4, 3:6]
+        #H_f = -H_x[:4, 3:6]
 
         # Compute the residual.
         r = z - np.array([*p_c0[:2]/p_c0[2], *p_c1[:2]/p_c1[2]])

@@ -54,7 +54,7 @@ class ConfigEuRoC(object):
         self.frame_rate = 20
 
         # Maximum number of camera states to be stored (default: 20)
-        self.max_cam_state_size = 10
+        self.max_cam_state_size = 20
 
         # The position uncertainty threshold is used to determine
         # when to reset the system online. Otherwise, the ever-increaseing
